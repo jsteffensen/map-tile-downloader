@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -6,24 +7,62 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class GoGetter {
+	
+	private static String base, filetype;
+	private static int zoom1, zoom2;
+	private static double lat1, lon1, lat2, lon2;
+	
+	public static void main(String[] args) {
+		
+		// CHANGE THESE ////////////
+		//base = "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/";
+		//base = "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/";
+		base = "https://basemaps.arcgis.com/arcgis/rest/services/World_Basemap_v2/VectorTileServer/tile/";
+		filetype = ".pbf";
+		
+		zoom1 = 11;
+		zoom2 = 19;
 
-	public static void saveTile(int x, int y, int z) {
+		lat1 = 53.67d;
+		lon1 = 4.2d;
 
-		//String base = "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/";
-		String base = "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/";
+		lat2 = 58.12d;
+		lon2 = 16.3d;
+		////////////////////////////
+		
+		downloadSet();
 
-		try(InputStream in = new URL(base + x + "/" + y + "/" + z + ".png").openStream()){
-			Path dir = Paths.get("C:/MapTileDownloader/aal/" + x + "/" + y);
-			Files.createDirectories(dir);
+	}
+	
+	private static void downloadSet() {
+		int[] startTile = getTileNumber(lat1, lon1, zoom1);
+		int[] stopTile = getTileNumber(lat2, lon2, zoom1);
 
-		    Files.copy(in, Paths.get("C:/MapTileDownloader/aal/" + x + "/" + y + "/" + z + ".png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		int y1 = stopTile[1];
+		int y2 = startTile[1];
+
+		int z1 = startTile[0];
+		int z2 = stopTile[0];
+
+		int m = 1;
+		int t = (y2-y1+1) * (z2-z1+1);
+
+		for(int j = y1; j <= y2; j++) {
+			for(int k = z1 ; k <= z2; k++, m++) {
+				saveTile(zoom1, j, k);
+				System.out.println("Tile " + m + " of " + t);
+			}
+
+		}
+		if(zoom1<zoom2) {
+			zoom1++;
+			downloadSet();
+		} else {
+			System.out.println("Done downloading");
 		}
 	}
-
-	 public static int[] getTileNumber(final double lat, final double lon, final int zoom) {
+	
+	 private static int[] getTileNumber(final double lat, final double lon, final int zoom) {
 		   int xtile = (int)Math.floor( (lon + 180) / 360 * (1<<zoom) ) ;
 		   int ytile = (int)Math.floor( (1 - Math.log(Math.tan(Math.toRadians(lat)) + 1 / Math.cos(Math.toRadians(lat))) / Math.PI) / 2 * (1<<zoom) ) ;
 		    if (xtile < 0)
@@ -38,43 +77,21 @@ public class GoGetter {
 		    return arr;
 
 	}
+	 
+	public static void saveTile(int x, int y, int z) {
 
-	public static void main(String[] args) {
+		try(InputStream in = new URL(base + x + "/" + y + "/" + z + filetype).openStream()){
+			Path dir = Paths.get("C:/MapTileDownloader/vectormap/" + x + "/" + y);
+			Files.createDirectories(dir);
 
-		int zoom, y1, y2, z1, z2, m, t;
-		double lat1, lat2, lon1, lon2;
-
-		// CHANGE THESE ////////////
-		zoom = 19;
-
-		lat1 = 57.077372d;
-		lon1 = 9.814816d;
-
-		lat2 = 57.111579d;
-		lon2 = 9.890497d;
-		////////////////////////////
-
-		int[] startTile = getTileNumber(lat1, lon1, zoom);
-		int[] stopTile = getTileNumber(lat2, lon2, zoom);
-
-		y1 = stopTile[1];
-		y2 = startTile[1];
-
-		z1 = startTile[0];
-		z2 = stopTile[0];
-
-		m = 1;
-		t = (y2-y1+1) * (z2-z1+1);
-
-		for(int j = y1; j <= y2; j++) {
-			for(int k = z1 ; k <= z2; k++, m++) {
-				saveTile(zoom, j, k);
-				System.out.println("Tile " + m + " of " + t);
+		    Files.copy(in, Paths.get("C:/MapTileDownloader/vectormap/" + x + "/" + y + "/" + z + filetype));
+		} catch (IOException e) {
+			if (e instanceof FileNotFoundException) {
+				System.out.println("not found.");
+			} else {
+				e.printStackTrace();
 			}
-
 		}
-
-
 	}
 
 }
