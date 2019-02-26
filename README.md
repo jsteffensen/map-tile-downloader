@@ -5,18 +5,18 @@ Can be imported into Eclipse, and exported as runnable Jar.
 
 Set this section in /src/GoGetter.java:
 ```
-		// CHANGE THESE ////////////
-		base = "https://basemaps.arcgis.com/arcgis/rest/services/World_Basemap_v2/VectorTileServer/tile/";
-		filetype = ".pbf";
-		
-		zoom1 = 11;
-		zoom2 = 19;
+// CHANGE THESE ////////////
+base = "https://basemaps.arcgis.com/arcgis/rest/services/World_Basemap_v2/VectorTileServer/tile/";
+filetype = ".pbf";
 
-		lat1 = 53.67d;
-		lon1 = 4.2d;
+zoom1 = 11;
+zoom2 = 19;
 
-		lat2 = 58.12d;
-		lon2 = 16.3d;
-		////////////////////////////
+lat1 = 53.67d;
+lon1 = 4.2d;
+
+lat2 = 58.12d;
+lon2 = 16.3d;
+////////////////////////////
     
 ```
