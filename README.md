@@ -6,11 +6,11 @@ Can be imported into Eclipse, and exported as runnable Jar.
 Set this section in [/src/GoGetter.java](https://github.com/jsteffensen/map-tile-downloader/blob/master/src/GoGetter.java):
 ```
 // CHANGE THESE ////////////
-base = "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/";
+base = "https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/";
 filetype = ".png";
 
 zoom1 = 6;
-zoom2 = 10;
+zoom2 = 8;
 
 lat1 = 53.67d;
 lon1 = 4.2d;
