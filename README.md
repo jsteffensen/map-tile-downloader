@@ -1,16 +1,17 @@
 # map-tile-downloader
-Crude tool to download maptiles from ArcGIS and save them as imagefiles (for LeafletJS usage)
+Crude tool to download maptiles from ArcGIS and save them as imagefiles on a local drive (e.g. for offline LeafletJS usage).
 
 Can be imported into Eclipse, and exported as runnable Jar.
 
 Set this section in /src/GoGetter.java:
 ```
 // CHANGE THESE ////////////
-base = "https://basemaps.arcgis.com/arcgis/rest/services/World_Basemap_v2/VectorTileServer/tile/";
-filetype = ".pbf";
+base = "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/";
+//base = "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/";
+filetype = ".png";
 
-zoom1 = 11;
-zoom2 = 19;
+zoom1 = 6;
+zoom2 = 10;
 
 lat1 = 53.67d;
 lon1 = 4.2d;
