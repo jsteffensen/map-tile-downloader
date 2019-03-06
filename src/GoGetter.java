@@ -15,8 +15,7 @@ public class GoGetter {
 	public static void main(String[] args) {
 		
 		// CHANGE THESE ////////////
-		base = "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/";
-		//base = "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/";
+		base = "https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/";
 		filetype = ".png";
 		
 		zoom1 = 6;
