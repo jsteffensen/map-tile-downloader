@@ -7,7 +7,6 @@ Set this section in [/src/GoGetter.java](https://github.com/jsteffensen/map-tile
 ```
 // CHANGE THESE ////////////
 base = "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/";
-//base = "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/";
 filetype = ".png";
 
 zoom1 = 6;
