@@ -27,7 +27,7 @@ public class GoGetter {
 		lat1 = 53.67d;
 		lon1 = 4.2d;
 
-		// north-west corner
+		// north-east corner
 		lat2 = 58.17d;
 		lon2 = 18.7d;
 		////////////////////////////
