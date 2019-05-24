@@ -49,7 +49,7 @@ public class GoGetter {
 		for(int j = y1; j <= y2; j++) {
 			for(int k = z1 ; k <= z2; k++, m++) {
 				saveTile(zoom1, j, k);
-				System.out.println("Tile " + m + " of " + t);
+				System.out.println("Tile " + m + " of " + t + " (" + zoom1 + "/" + j + "/" + k + filetype + ")");
 			}
 
 		}
@@ -79,16 +79,19 @@ public class GoGetter {
 	 
 	public static void saveTile(int x, int y, int z) {
 
-		try(InputStream in = new URL(base + x + "/" + y + "/" + z + filetype).openStream()){
-			Path dir = Paths.get("C:/MapTileDownloader/openstreetmap/" + x + "/" + y);
-			Files.createDirectories(dir);
-
-		    Files.copy(in, Paths.get("C:/MapTileDownloader/openstreetmap/" + x + "/" + y + "/" + z + filetype));
-		} catch (IOException e) {
-			if (e instanceof FileNotFoundException) {
-				System.out.println("not found.");
-			} else {
-				e.printStackTrace();
+		if(!Files.exists( Paths.get("C:/MapTileDownloader/openstreetmap/" + x + "/" + y + "/" + z + filetype) )) {
+			
+			try(InputStream in = new URL(base + x + "/" + y + "/" + z + filetype).openStream()){
+				Path dir = Paths.get("C:/MapTileDownloader/openstreetmap/" + x + "/" + y);
+				Files.createDirectories(dir);
+	
+			    Files.copy(in, Paths.get("C:/MapTileDownloader/openstreetmap/" + x + "/" + y + "/" + z + filetype));
+			} catch (IOException e) {
+				if (e instanceof FileNotFoundException) {
+					System.out.println("not found.");
+				} else {
+					e.printStackTrace();
+				}
 			}
 		}
 	}
