@@ -15,17 +15,18 @@ public class GoGetter {
 	public static void main(String[] args) {
 		
 		// CHANGE THESE ////////////
-		base = "https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/";
+		//base = "https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/";
+		base = "https://b.tile.openstreetmap.org/";
 		filetype = ".png";
 		
-		zoom1 = 6;
-		zoom2 = 8;
+		zoom1 = 1;
+		zoom2 = 14;
 
 		lat1 = 53.67d;
 		lon1 = 4.2d;
 
-		lat2 = 58.12d;
-		lon2 = 16.3d;
+		lat2 = 58.17d;
+		lon2 = 18.7d;
 		////////////////////////////
 		
 		downloadSet();
@@ -79,10 +80,10 @@ public class GoGetter {
 	public static void saveTile(int x, int y, int z) {
 
 		try(InputStream in = new URL(base + x + "/" + y + "/" + z + filetype).openStream()){
-			Path dir = Paths.get("C:/MapTileDownloader/vectormap/" + x + "/" + y);
+			Path dir = Paths.get("C:/MapTileDownloader/openstreetmap/" + x + "/" + y);
 			Files.createDirectories(dir);
 
-		    Files.copy(in, Paths.get("C:/MapTileDownloader/vectormap/" + x + "/" + y + "/" + z + filetype));
+		    Files.copy(in, Paths.get("C:/MapTileDownloader/openstreetmap/" + x + "/" + y + "/" + z + filetype));
 		} catch (IOException e) {
 			if (e instanceof FileNotFoundException) {
 				System.out.println("not found.");
