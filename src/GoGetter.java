@@ -15,6 +15,7 @@ public class GoGetter {
 	public static void main(String[] args) {
 		
 		// CHANGE THESE ////////////
+		
 		//base = "https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/";
 		base = "https://b.tile.openstreetmap.org/";
 		filetype = ".png";
@@ -22,9 +23,11 @@ public class GoGetter {
 		zoom1 = 1;
 		zoom2 = 14;
 
+		// south-west corner
 		lat1 = 53.67d;
 		lon1 = 4.2d;
 
+		// north-west corner
 		lat2 = 58.17d;
 		lon2 = 18.7d;
 		////////////////////////////
