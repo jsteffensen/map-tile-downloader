@@ -46,7 +46,7 @@ public class App {
 		for(int j = y1; j <= y2; j++) {
 			for(int k = z1 ; k <= z2; k++, m++) {
 				TileClient.saveTileHtmlUnit(zoom1, j, k);
-				System.out.println("Tile " + m + " of " + t + " (" + zoom1 + "/" + j + "/" + k + filetype + ")");
+				System.out.println("Tile " + m + " of " + t + " (" + zoom1 + "/" + k + "/" + j + filetype + ")");
 			}
 
 		}
