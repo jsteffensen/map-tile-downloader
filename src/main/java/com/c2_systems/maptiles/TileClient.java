@@ -36,14 +36,22 @@ public class TileClient {
 		}
 	}
 	
+	
+	
 	public static void saveTileHtmlUnit(int x, int y, int z) {
 		
-		if(!Files.exists( Paths.get("C:/MapTileDownloader/openstreetmap/" + x + "/" + z + "/" + y + App.filetype) )) {
+		if(Files.notExists( Paths.get("C:/MapTileDownloader/openstreetmap/" + x + "/" + z + "/" + y + App.filetype) )) {
+			if(Files.notExists(Paths.get("C:/MapTileDownloader/openstreetmap/" + x + "/" + z))) {
+				try {
+					Files.createDirectories(Paths.get("C:/MapTileDownloader/openstreetmap/" + x + "/" + z));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 			
 			try {
 				
 				String url = App.base + x + "/" + y + "/" + z + App.filetype;
-
 				Files.copy(webClient.getPage(url).getWebResponse().getContentAsStream(), Paths.get("C:/MapTileDownloader/openstreetmap/" + x + "/" + z + "/" + y + App.filetype));
 			    
 			} catch (Exception e) {

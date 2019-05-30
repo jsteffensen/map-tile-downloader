@@ -14,7 +14,7 @@ public class App {
 		base = "https://b.tile.openstreetmap.org/";
 		filetype = ".png";
 		
-		zoom1 = 12;
+		zoom1 = 13;
 		zoom2 = 14;
 
 		// south-west corner
