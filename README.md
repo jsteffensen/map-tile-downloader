@@ -3,7 +3,7 @@ Crude tool to download maptiles from ArcGIS and save them as imagefiles on a loc
 
 Can be imported into Eclipse, and exported as runnable Jar.
 
-Set this section in [/src/GoGetter.java](https://github.com/jsteffensen/map-tile-downloader/blob/master/src/GoGetter.java):
+Set this section in [/App.java](https://github.com/jsteffensen/map-tile-downloader/blob/master/src/main/java/com/c2_systems/maptiles/App.java):
 ```
 // CHANGE THESE ////////////
 base = "https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/";
