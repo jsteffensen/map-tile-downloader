@@ -1,6 +1,6 @@
 // NodeJS implementation
 
-const axios = require('axios');
+const https = require('https');
 const fs = require('fs');
 const path = require('path');
 
@@ -46,25 +46,32 @@ async function downloadSet(zoom) {
 }
 
 // Function to download and save a tile
-async function saveTile(zoom, x, y) {
+function saveTile(zoom, x, y) {
     const url = `${base}${zoom}/${x}/${y}${filetype}`;
     const filePath = path.join(__dirname, `${zoom}_${x}_${y}${filetype}`);
 
-    try {
-        const response = await axios({
-            url,
-            method: 'GET',
-            responseType: 'stream'
-        });
+    return new Promise((resolve, reject) => {
+        https.get(url, (response) => {
+            if (response.statusCode !== 200) {
+                console.error(`Failed to download tile ${zoom}/${x}/${y}: Status Code ${response.statusCode}`);
+                return reject(new Error(`Failed to download tile: ${response.statusCode}`));
+            }
 
-        response.data.pipe(fs.createWriteStream(filePath));
-        return new Promise((resolve, reject) => {
-            response.data.on('end', resolve);
-            response.data.on('error', reject);
+            const fileStream = fs.createWriteStream(filePath);
+            response.pipe(fileStream);
+
+            fileStream.on('finish', () => {
+                fileStream.close(resolve);
+            });
+
+            fileStream.on('error', (error) => {
+                fs.unlink(filePath, () => reject(error));
+            });
+        }).on('error', (error) => {
+            console.error(`Failed to download tile ${zoom}/${x}/${y}:`, error);
+            reject(error);
         });
-    } catch (error) {
-        console.error(`Failed to download tile ${zoom}/${x}/${y}:`, error);
-    }
+    });
 }
 
 // Function to calculate tile number for given latitude, longitude, and zoom level
